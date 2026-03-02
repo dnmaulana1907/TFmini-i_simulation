@@ -11,7 +11,7 @@
 #include "stm32f4xx_hal.h"
 
 uint16_t crc16_modbus(uint8_t *buf, uint8_t length);
-void insert_crc(uint8_t *packet_head);
+void insert_crc(uint8_t *packet_head, uint8_t len);
 uint8_t crc_check(uint8_t *packet_head);
 
 #endif /* INC_CRC_MOD_H_ */
