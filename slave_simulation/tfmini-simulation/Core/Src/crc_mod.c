@@ -31,13 +31,13 @@ uint16_t crc16_modbus(uint8_t *buf, uint8_t length)
 }
 
 
-void insert_crc(uint8_t *packet_head)
+void insert_crc(uint8_t *packet_head, uint8_t len)
 {
 	uint16_t crc_ret;
-	crc_ret = crc16_modbus(&packet_head[0], LENGTH_CHECK);
+	crc_ret = crc16_modbus(&packet_head[0], len);
 
-	packet_head[6] = (uint8_t) crc_ret;
-	packet_head[7] = (uint8_t) (crc_ret >> 8);
+	packet_head[len] = (uint8_t) crc_ret;
+	packet_head[len + 1] = (uint8_t) (crc_ret >> 8);
 
 }
 
