@@ -1,0 +1,3 @@
+../Core/Src/crc_mod.c:14:10:crc16_modbus	32	static,ignoring_inline_asm
+../Core/Src/crc_mod.c:34:6:insert_crc	24	static
+../Core/Src/crc_mod.c:44:9:crc_check	24	static
