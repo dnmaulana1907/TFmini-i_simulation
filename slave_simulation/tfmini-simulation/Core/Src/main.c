@@ -104,7 +104,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  system_uart_command();
+	  if(uart_interrupt_flag == 1) system_uart_command();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -181,10 +181,11 @@ static void system_uart_command(void)
 	uart_interrupt_flag = RESET;
 	uint8_t crc_validation = crc_check(uart_rx_buf);
 
-	if(crc_validation == SUCCESS)
-	{
+	if(crc_validation == SUCCESS && scp_worker_execute_cmd((uint8_t*)uart_rx_buf) == SUCCESS);
 
-	}
+	memset(uart_rx_buf, 0x0, UART_SIZE);
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, uart_rx_buf, UART_SIZE);
+	__HAL_DMA_DISABLE_IT(&hdma_usart1_rx, DMA_IT_HT);
 
 }
 /* USER CODE END 4 */
