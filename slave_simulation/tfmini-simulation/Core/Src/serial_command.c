@@ -12,6 +12,8 @@
 #define UART_TIMEOUT	100
 
 extern uint8_t slave_id;
+uint8_t id_update_flag;
+uint8_t id_change;
 
 const static struct scp_cmd_func_binding_s scp_cmd_func_table[] = {
 //		command TAG					 function binding
@@ -124,6 +126,8 @@ static void set_frame_rate(uint8_t* scp_buf)
 static void set_slave_id(uint8_t* scp_buf)
 {
 	HAL_UART_Transmit(&huart1, scp_buf, 8, UART_TIMEOUT);
+	id_update_flag = SET;
+	id_change = scp_buf[5];
 }
 
 static void set_work_mode(uint8_t* scp_buf)
@@ -134,6 +138,11 @@ static void set_work_mode(uint8_t* scp_buf)
 static void save_configuration(uint8_t* scp_buf)
 {
 	HAL_UART_Transmit(&huart1, scp_buf, 8, UART_TIMEOUT);
+	if(id_update_flag == SET)
+	{
+		id_update_flag = RESET;
+		slave_id = id_change;
+	}
 }
 
 static void reset_sensor(uint8_t* scp_buf)
