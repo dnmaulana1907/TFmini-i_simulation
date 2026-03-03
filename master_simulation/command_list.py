@@ -350,12 +350,11 @@ def get_firmware_version(slave_id: bytes) -> int:
 
         if len(response) == 9 and response[0] == slave_id[0] and response[1] == 0x03 and response[2] == 0x04:
             if calculate_crc16(response[:-2]) == response[-2:]:
-                major_version = response[3]
-                minor_version = response[4]
-                patch_version = response[5]
-                build_number = response[6]
+                main_version = response[4]
+                sub_version = response[5]
+                revised_version = response[6]
                 
-                print(colored(f"[FIRMWARE_VERSION] Version: {major_version}.{minor_version}.{patch_version} Build {build_number}", "green", "on_white"))
+                print(colored(f"[FIRMWARE_VERSION] Version: {main_version}.{sub_version}.{revised_version}", "green", "on_white"))
                 return PROCESS_SUCCESS
             else:
                 print(colored("[ERROR] CRC mismatch in received response.", "white", "on_red"))
