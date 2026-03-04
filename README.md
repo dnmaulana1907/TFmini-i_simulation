@@ -67,11 +67,11 @@ This is the format sent by your Python script to the sensor.
 
 | Byte Index | Field | Length | Description |
 | :--- | :--- | :--- | :--- |
-| **0** | **Slave ID** | 1 Byte | [cite_start]Target sensor address (Default: `0x01`)[cite: 138]. |
-| **1** | **Function Code** | 1 Byte | [cite_start]`0x03` (Read) or `0x06` (Write)[cite: 156]. |
-| **2-3** | **Register Address** | 2 Bytes | [cite_start]The memory address to read/write (**Big Endian**)[cite: 149]. |
-| **4-5** | **Data / Length** | 2 Bytes | [cite_start]Value to write or number of registers to read (**Big Endian**)[cite: 149]. |
-| **6-7** | **CRC-16** | 2 Bytes | [cite_start]Checksum for error detection (**Little Endian**)[cite: 149]. |
+| **0** | **Slave ID** | 1 Byte | Target sensor address (Default: `0x01`). |
+| **1** | **Function Code** | 1 Byte | `0x03` (Read) or `0x06` (Write). |
+| **2-3** | **Register Address** | 2 Bytes | The memory address to read/write (**Big Endian**). |
+| **4-5** | **Data / Length** | 2 Bytes | Value to write or number of registers to read (**Big Endian**). |
+| **6-7** | **CRC-16** | 2 Bytes | Checksum for error detection (**Little Endian**). |
 
 **Example: Request to Read Distance**
 `01 03 00 00 00 01 84 0A`
@@ -88,11 +88,11 @@ This is the format returned by the STM32 (Mock Sensor) to your Python script.
 
 | Byte Index | Field | Length | Description |
 | :--- | :--- | :--- | :--- |
-| **0** | **Slave ID** | 1 Byte | [cite_start]Address of the responding sensor[cite: 151]. |
-| **1** | **Function Code** | 1 Byte | [cite_start]Echoes the requested function code[cite: 151]. |
-| **2** | **Byte Count** | 1 Byte | [cite_start]Number of data bytes following (Only for Read `0x03`)[cite: 151]. |
-| **3...N** | **Data Payload** | N Bytes | [cite_start]The requested sensor data (**Big Endian**)[cite: 160]. |
-| **N+1...N+2** | **CRC-16** | 2 Bytes | [cite_start]Checksum for error detection (**Little Endian**)[cite: 151]. |
+| **0** | **Slave ID** | 1 Byte | Address of the responding sensor. |
+| **1** | **Function Code** | 1 Byte | Echoes the requested function code. |
+| **2** | **Byte Count** | 1 Byte | Number of data bytes following (Only for Read `0x03`). |
+| **3...N** | **Data Payload** | N Bytes | The requested sensor data (**Big Endian**). |
+| **N+1...N+2** | **CRC-16** | 2 Bytes | Checksum for error detection (**Little Endian**). |
 
 **Example: Response for Distance (700 cm)**
 `01 03 02 02 BC B8 95`
